@@ -1,0 +1,46 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Three.js Beginner Project
+
+这是一个初学者学习 three.js 的练习项目。
+
+该项目采用 TypeScript 进行开发。
+
+## 学习提示
+
+### Three.js 核心概念
+在学习过程中，请关注以下 Three.js 的核心概念：
+*   **场景 (Scene)**：容纳所有 3D 物体的容器。
+*   **相机 (Camera)**：决定我们从哪个角度观察场景。
+*   **渲染器 (Renderer)**：将场景和相机的信息转化为最终图像。
+*   **几何体 (Geometry)**：定义物体的形状，如立方体、球体等。
+*   **材质 (Material)**：定义物体表面的外观，如颜色、纹理、光泽度等。
+*   **光照 (Lights)**：模拟光源，使物体可见并产生阴影。
+*   **网格 (Mesh)**：由几何体和材质组成，是场景中可见的物体。
+
+### 数学基础
+3D 图形编程与数学紧密相关，特别是**线性代数**中的概念：
+*   **向量 (Vectors)**：用于表示位置、方向、速度等。
+*   **矩阵 (Matrices)**：用于表示变换，如平移、旋转、缩放。
+*   **四元数 (Quaternions)**：常用于表示旋转，以避免万向节死锁问题。
+
+如果你在理解这些数学概念或它们在 Three.js 中的应用时遇到困难，请随时提出，我会尽力提供更详细的解释或相关学习资源。
+
+### 代码组织
+建议将项目代码进行良好的组织，例如：
+*   `src/`：存放主要的 TypeScript 源代码。
+    *   `main.ts`：项目入口文件。
+    *   `core/`：存放 Three.js 核心设置，如场景、相机、渲染器初始化。
+    *   `objects/`：存放自定义的 3D 对象或场景元素。
+    *   `utils/`：存放辅助函数或工具类。
+*   `static/` 或 `assets/`：存放静态资源，如纹理图片、3D 模型文件等。
+*   `shaders/`：如果使用自定义着色器，可以单独存放 GLSL 文件。
+
+### 参考资源
+*   **Three.js 官方文档**: [https://threejs.org/docs/](mdc:https:/threejs.org/docs)
+*   **Three.js 官方示例**: [https://threejs.org/examples/](mdc:https:/threejs.org/examples)
+
+这些资源对于学习和解决问题非常有帮助。
