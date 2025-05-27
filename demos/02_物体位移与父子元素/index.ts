@@ -59,8 +59,8 @@ controls.enablePan = true;
 function animate() {
   requestAnimationFrame(animate);
   // 旋转
-  // cube.rotation.x += 0.01;
-  // cube.rotation.y += 0.01;
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
   // 更新轨道控制器
   controls.update();
   // 渲染

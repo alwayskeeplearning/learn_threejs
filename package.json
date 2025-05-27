@@ -21,7 +21,7 @@
   "packageManager": "pnpm@9.13.0",
   "scripts": {
     "prepare": "husky",
-    "watch-demos": "node watch-demos.js",
+    "watch-demos": "node watch-demos.mjs",
     "dev": "cross-env NODE_ENV=development rspack serve --config ./build/dev.mjs",
     "build": "cross-env NODE_ENV=production rspack build --config ./build/prod.mjs",
     "docs": "dumi dev",
