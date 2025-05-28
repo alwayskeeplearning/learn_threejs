@@ -30,15 +30,21 @@ const parentCube = new THREE.Mesh(geometry, material2);
 const cube = new THREE.Mesh(geometry, material);
 parentCube.add(cube);
 parentCube.position.set(-3, 0, 0);
+parentCube.scale.set(2, 2, 2);
 cube.position.set(3, 0, 0);
+cube.scale.set(2, 2, 2);
+// parentCube.rotation.set(Math.PI / 4, Math.PI / 4, Math.PI / 4);
+// cube.rotation.set(Math.PI / 4, Math.PI / 4, Math.PI / 4);
+parentCube.rotation.x = Math.PI / 4;
+cube.rotation.x = Math.PI / 4;
 
 // 将网格添加到场景中
 scene.add(parentCube);
 
 // 设置相机位置
-camera.position.z = 2;
-camera.position.y = 2;
-camera.position.x = 2;
+camera.position.z = 10;
+camera.position.y = 10;
+camera.position.x = 10;
 // 设置相机朝向(看向原点)
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -73,3 +79,30 @@ function animate() {
 }
 
 animate();
+
+// 监听窗口大小变化
+window.addEventListener('resize', () => {
+  // 更新渲染器
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  // 更新相机
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+
+const button = document.createElement('button');
+button.style.position = 'absolute';
+button.style.top = '10px';
+button.style.left = '10px';
+button.style.zIndex = '1000';
+button.innerHTML = '全屏';
+document.body.appendChild(button);
+
+button.addEventListener('click', () => {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+    button.innerHTML = '全屏';
+  } else {
+    document.documentElement.requestFullscreen();
+    button.innerHTML = '退出全屏';
+  }
+});
