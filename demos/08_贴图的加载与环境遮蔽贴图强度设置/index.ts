@@ -43,9 +43,9 @@ const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 scene.add(plane);
 
 // 设置相机位置
-camera.position.z = 2;
-camera.position.y = 1;
-camera.position.x = 1;
+camera.position.z = 1.5;
+camera.position.y = 0.5;
+camera.position.x = 0.2;
 // 设置相机朝向(看向原点)
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
