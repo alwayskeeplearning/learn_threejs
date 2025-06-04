@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min';
+import * as TWEEN from 'three/examples/jsm/libs/tween.module';
 
 // 创建场景
 const scene = new THREE.Scene();
@@ -21,26 +22,9 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// 创建长方体
-const boxGeometry = new THREE.BoxGeometry(1, 1, 50);
-const boxMaterial = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-});
-const box = new THREE.Mesh(boxGeometry, boxMaterial);
-scene.add(box);
-
-// // 创建线型雾
-const fog = new THREE.Fog(0x999999, 0.1, 25);
-scene.fog = fog;
-// 创建指数雾
-const fogExp2 = new THREE.FogExp2(0x999999, 0.1);
-// scene.fog = fogExp2;
-// 设置背景色 实现更好雾化的感觉
-scene.background = new THREE.Color(0x999999);
-
 // 设置相机位置
-camera.position.z = 5;
-camera.position.y = 3;
+camera.position.z = 10;
+camera.position.y = 2;
 camera.position.x = 2;
 // 设置相机朝向(看向原点)
 camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -70,6 +54,8 @@ function animate() {
   controls.update();
   // 渲染
   renderer.render(scene, camera);
+  // 更新补间动画
+  TWEEN.update();
 }
 
 animate();
@@ -84,11 +70,56 @@ window.addEventListener('resize', () => {
 });
 
 const gui = new GUI();
-// 添加线型雾和指数雾两种切换
-gui.add(scene, 'fog', {
-  fog: fog,
-  fogExp2: fogExp2,
+
+const sphereGeometry1 = new THREE.SphereGeometry(1, 32, 32);
+const sphereMaterial1 = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const sphere1 = new THREE.Mesh(sphereGeometry1, sphereMaterial1);
+sphere1.position.x = -4;
+scene.add(sphere1);
+
+const tween = new TWEEN.Tween(sphere1.position);
+tween.to({ x: 4 }, 1000).onUpdate(() => {
+  console.log(sphere1.position.x);
 });
-gui.add(fog, 'near').min(0).max(100).step(0.1).name('线型雾近端');
-gui.add(fog, 'far').min(0).max(100).step(0.1).name('线型雾远端');
-gui.add(fogExp2, 'density').min(0).max(1).step(0.01).name('指数雾密度');
+tween.easing(TWEEN.Easing.Quadratic.InOut);
+// tween.repeat(2);
+// tween.yoyo(true);
+// tween.delay(50);
+// tween.onComplete(() => {
+//   console.log('完成');
+// });
+
+const tween2 = new TWEEN.Tween(sphere1.position);
+tween2.to({ y: -4 }, 1000);
+tween2.easing(TWEEN.Easing.Quadratic.InOut);
+
+const tween3 = new TWEEN.Tween(sphere1.position);
+tween3.to({ y: 0 }, 1000);
+tween3.easing(TWEEN.Easing.Quadratic.InOut);
+
+const tween4 = new TWEEN.Tween(sphere1.position);
+tween4.to({ x: -4 }, 1000);
+tween4.easing(TWEEN.Easing.Quadratic.InOut);
+
+tween.chain(tween2);
+tween2.chain(tween3);
+tween3.chain(tween4);
+tween4.chain(tween);
+tween.start();
+tween.onStart(() => {
+  console.log('开始');
+});
+tween.onComplete(() => {
+  console.log('完成');
+});
+tween.onStop(() => {
+  console.log('停止');
+});
+tween.onUpdate(() => {
+  console.log('更新');
+});
+
+const params = {
+  stop: () => tween.stop(),
+};
+gui.add(params, 'stop').name('停止');
