@@ -106,8 +106,8 @@ const displacementTexture = textureLoader.load('/static/textures/watercover/City
 const aoTexture = textureLoader.load('/static/textures/watercover/CityNewYork002_AO_1K.jpg');
 
 const planeGeometry = new THREE.PlaneGeometry(1, 1, 200, 200);
-// const planeMaterial = new THREE.MeshPhongMaterial({
-const planeMaterial = new THREE.MeshLambertMaterial({
+const planeMaterial = new THREE.MeshPhongMaterial({
+  // const planeMaterial = new THREE.MeshLambertMaterial({
   transparent: true,
   side: THREE.DoubleSide,
   map: texture,
