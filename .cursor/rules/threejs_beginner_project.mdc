@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # Three.js Beginner Project
 
@@ -29,18 +29,17 @@ alwaysApply: false
 
 如果你在理解这些数学概念或它们在 Three.js 中的应用时遇到困难，请随时提出，我会尽力提供更详细的解释或相关学习资源。
 
-### 代码组织
-建议将项目代码进行良好的组织，例如：
-*   `src/`：存放主要的 TypeScript 源代码。
-    *   `main.ts`：项目入口文件。
-    *   `core/`：存放 Three.js 核心设置，如场景、相机、渲染器初始化。
-    *   `objects/`：存放自定义的 3D 对象或场景元素。
-    *   `utils/`：存放辅助函数或工具类。
-*   `static/` 或 `assets/`：存放静态资源，如纹理图片、3D 模型文件等。
-*   `shaders/`：如果使用自定义着色器，可以单独存放 GLSL 文件。
-
 ### 参考资源
 *   **Three.js 官方文档**: [https://threejs.org/docs/](mdc:https:/threejs.org/docs)
 *   **Three.js 官方示例**: [https://threejs.org/examples/](mdc:https:/threejs.org/examples)
 
 这些资源对于学习和解决问题非常有帮助。
+
+## 交互提示
+
+### 回复语言
+首选中文回复
+
+### 回复逻辑
+因为是初学者，所以在设计到概念和理论知识的时候尽量举一些生活中的简单易懂的形象化的例子帮助更好的理解和学习。在详细解答后，请务必在结尾提供一个一针见血的简要总结。
+
