@@ -106,6 +106,10 @@ const displacementTexture = textureLoader.load('/static/textures/watercover/City
 const aoTexture = textureLoader.load('/static/textures/watercover/CityNewYork002_AO_1K.jpg');
 
 const planeGeometry = new THREE.PlaneGeometry(1, 1, 200, 200);
+// 为几何体添加第二组UV坐标，用于应用环境光遮蔽贴图
+planeGeometry.setAttribute('uv2', new THREE.BufferAttribute(planeGeometry.attributes.uv.array, 2));
+console.log(planeGeometry.attributes);
+
 const planeMaterial = new THREE.MeshPhongMaterial({
   // const planeMaterial = new THREE.MeshLambertMaterial({
   transparent: true,
@@ -116,6 +120,7 @@ const planeMaterial = new THREE.MeshPhongMaterial({
   // bumpMap: displacementTexture,
   // displacementMap: displacementTexture,
   displacementScale: 0.02,
+  aoMapIntensity: 1,
   // aoMap: aoTexture,
 });
 
@@ -133,7 +138,7 @@ const textureControls = {
   enableAOMap: false,
 };
 
-const textureFolder = gui.addFolder('贴图控制');
+const textureFolder = gui;
 textureFolder
   .add(textureControls, 'enableMap')
   .name('颜色贴图')
@@ -149,19 +154,20 @@ textureFolder
     planeMaterial.needsUpdate = true;
   });
 textureFolder
-  .add(textureControls, 'enableNormalMap')
-  .name('法线贴图')
-  .onChange(value => {
-    planeMaterial.normalMap = value ? normalTexture : null;
-    planeMaterial.needsUpdate = true;
-  });
-textureFolder
   .add(textureControls, 'enableBumpMap')
   .name('凹凸贴图')
   .onChange(value => {
     planeMaterial.bumpMap = value ? displacementTexture : null;
     planeMaterial.needsUpdate = true;
   });
+textureFolder
+  .add(textureControls, 'enableNormalMap')
+  .name('法线贴图')
+  .onChange(value => {
+    planeMaterial.normalMap = value ? normalTexture : null;
+    planeMaterial.needsUpdate = true;
+  });
+
 textureFolder
   .add(textureControls, 'enableDisplacementMap')
   .name('置换贴图')
@@ -176,4 +182,5 @@ textureFolder
     planeMaterial.aoMap = value ? aoTexture : null;
     planeMaterial.needsUpdate = true;
   });
+textureFolder.add(planeMaterial, 'aoMapIntensity').min(0).max(20).step(0.1).name('AO强度');
 textureFolder.add(planeMaterial, 'displacementScale').min(0).max(0.1).step(0.001).name('置换强度');
