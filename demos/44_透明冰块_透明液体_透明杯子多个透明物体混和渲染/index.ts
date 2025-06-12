@@ -81,6 +81,8 @@ rgbeLoader.load('/static/textures/Alex_Hart-Nature_Lab_Bones_2k.hdr', texture =>
   texture.mapping = THREE.EquirectangularReflectionMapping;
   scene.background = texture;
   scene.environment = texture;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.7;
 });
 
 const gltfLoader = new GLTFLoader();
@@ -432,10 +434,17 @@ gltfLoader.load('/static/models/cup.glb', gltf => {
   gui.add(cup, 'renderOrder').min(0).max(10).step(1).name('杯子渲染顺序');
 });
 
-// // 增加水位调试
-// gui.add(water.position, 'z').min(-10).max(10).step(0.1).name('水位');
+gui.add(renderer, 'toneMappingExposure').name('色调曝光度').min(0.1).max(2).step(0.1);
 
-// // 增加杯子缩放调试
-// gui.add(cup.scale, 'x').min(0).max(10).step(0.1).name('杯子缩放x');
-// gui.add(cup.scale, 'y').min(0).max(10).step(0.1).name('杯子缩放y');
-// gui.add(cup.scale, 'z').min(0).max(10).step(0.1).name('杯子缩放z');
+gui.add(renderer, 'toneMapping').name('色调映射').options({
+  // 无色调映射
+  No: THREE.NoToneMapping,
+  // 线性色调映射
+  Linear: THREE.LinearToneMapping,
+  // Reinhard色调映射。这是一种更复杂的色调映射方式，可以更好地处理高亮度的区域。它根据整个图像的平均亮度来调整每个像素的亮度。
+  Reinhard: THREE.ReinhardToneMapping,
+  // Cineon色调映射。这种方法起源于电影行业，尝试模仿电影胶片的颜色响应，使得图像在颜色上看起来更富有电影感。
+  Cineon: THREE.CineonToneMapping,
+  // ACES Filmic色调映射。这是一种模仿电影行业中常用的色调映射算法，可以产生类似于电影的视觉效果。
+  ACESFilmic: THREE.ACESFilmicToneMapping,
+});
