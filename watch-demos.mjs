@@ -43,7 +43,7 @@ async function startDevProcess() {
       await killProcess(devProcess.pid, 'SIGINT'); // SIGINT 通常用于优雅关闭
       // 如果SIGINT后进程仍在，则使用SIGTERM
       if (devProcess && devProcess.pid) {
-        await new Promise(resolve => setTimeout(resolve, 300)); // 等待一下
+        await new Promise(resolve => setTimeout(resolve, 500)); // 等待一下
         if (devProcess && devProcess.pid) {
           // 再次检查
           console.log(`🔪 旧进程 ${devProcess.pid} 仍在，尝试 SIGTERM...`);
@@ -55,7 +55,7 @@ async function startDevProcess() {
     }
     devProcess = null; // 清理旧进程引用
   }
-
+  await new Promise(resolve => setTimeout(resolve, 300));
   console.log('🚀 启动 "npm run dev"...');
 
   // 解析 'npm run dev' 命令
