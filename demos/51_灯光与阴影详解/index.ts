@@ -152,9 +152,17 @@ rgbeLoader.load('/static/textures/Video_Copilot-Back Light_0007_4k.hdr', texture
   directionalLight.target.position.set(0, 0, 0);
   scene.add(directionalLight);
 
-  // 设置平行光阴影
+  // 设置平行光阴影 阴影是一个正交相机 一个立方体 所以需要设置相机参数
   directionalLight.castShadow = true;
   directionalLight.receiveShadow = true;
+  // directionalLight.shadow.camera.near = 0.1;
+  // directionalLight.shadow.camera.far = 5;
+  directionalLight.shadow.camera.left = -10;
+  directionalLight.shadow.camera.right = 10;
+  directionalLight.shadow.camera.top = 10;
+  directionalLight.shadow.camera.bottom = -10;
+  // 设置阴影纹理大小 默认为512 解决阴影锯齿
+  directionalLight.shadow.mapSize.set(2048, 2048);
 
   // 添加平行光辅助器
   const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight);
