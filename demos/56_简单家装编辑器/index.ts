@@ -106,7 +106,6 @@ const eventObj = {
     // 3. 添加使用前的检查，防止模型未加载完就添加
     if (basicScene) {
       scene.add(basicScene);
-      transformControls.attach(basicScene);
     } else {
       alert('基础模型尚未加载完成，请稍候...');
     }
@@ -134,7 +133,9 @@ const eventObj = {
 };
 transformControls.addEventListener('change', () => {
   if (eventObj.isClampToGround) {
-    transformControls.object.position.y = 0;
+    if (transformControls?.object) {
+      transformControls.object.position.y = 0;
+    }
   }
 });
 transformControls.addEventListener('dragging-changed', event => {
@@ -234,6 +235,7 @@ rgbeLoader.load('/static/textures/Alex_Hart-Nature_Lab_Bones_2k.hdr', envMap => 
         object3d: mesh,
       });
       scene.add(mesh);
+
       transformControls.attach(mesh);
       const meshOpt = {
         toggleMesh: () => {
